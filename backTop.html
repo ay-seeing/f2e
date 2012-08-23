@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+*{margin:0;padding:0}
+#backTop{position:fixed;right:10px;bottom:10px;}
+	</style>
+	<script type="text/javascript">
+window.onload=function(){
+    var oBackTop=document.getElementById("backTop");
+    var mytime;
+    var osys=true;
+    window.onscroll=function(){
+        if(!osys){
+            clearInterval(mytime);
+        }
+        osys=false;
+    }
+    oBackTop.onclick=function(){
+        mytime=setInterval(function(){
+            var oTop=document.documentElement.scrollTop || document.body.scrollTop;
+            var oH=Math.ceil(oTop/5);
+            if(oTop==0){clearInterval(mytime);}
+            osys=true;
+            window.scrollTo("",oTop-oH);
+        },20);
+    }
+}
+</script>
+
+</head>
+<body style="height:2000px;">
+	<div id="backTop">↑</div>
+</body>
+</html>

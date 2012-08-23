@@ -1,0 +1,191 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<!-- <link rel="stylesheet/less" type="text/css" href="styles.less">
+	<script type="text/javascript" src="http://lesscss.googlecode.com/files/less-1.3.0.min.js"></script> -->
+	<script type="text/javascript">
+	//返回头部和底部定时器名称
+	var backTime;
+	var sroll_=true;
+	window.onload=window.onresize=window.onscroll=function(){
+		oScrollBox=document.getElementById("scrollBox");
+		if(!sroll_){
+			clearInterval(backTime);
+		}
+		sroll_=false;
+		var scrollT=document.documentElement.scrollTop || document.body.scrollTop;   //页面的scrollTop值
+		var windowClientHeight=document.documentElement.clientHeight;     //浏览器页面可见高度
+		var iTarget=scrollT+parseInt((windowClientHeight-oScrollBox.offsetHeight)/2);
+		fnMove(oScrollBox,iTarget);
+
+		//向上滚
+		var oTop=document.getElementById("top");
+		oTop.onclick=function(){
+			fnBack(0);
+		}
+
+		//向中间滚
+		var oCenter=document.getElementById("center");
+		oCenter.onclick=function(){
+			fnBack(parseInt((document.documentElement.offsetHeight-windowClientHeight)/2));
+		}
+
+		//向下滚
+		var oBottom=document.getElementById("bottom");
+		oBottom.onclick=function(){
+			fnBack(document.documentElement.offsetHeight-windowClientHeight);
+		}
+	}
+
+	var moveTime;
+	function fnMove(obj,iTarget){
+		clearInterval(moveTime);
+		moveTime=setInterval(function(){
+			var iSpeed=(iTarget-obj.offsetTop)/5;
+			iSpeed=iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed) ;
+			if(iSpeed==0){clearInterval(moveTime);}
+			obj.style["top"]=(obj.offsetTop+iSpeed)+"px";
+		},30);
+	}
+
+	//返回头部和底部
+	function fnBack(iTarget){
+		clearInterval(backTime);
+		backTime=setInterval(function(){
+			var scrollT=document.documentElement.scrollTop || document.body.scrollTop;   //页面的scrollTop值
+			var iSpeed=(iTarget-scrollT)/5;
+			iSpeed=iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed) ;
+			if(iSpeed==0){clearInterval(backTime);}
+			sroll_=true;
+			window.scrollTo("",scrollT+iSpeed);
+		},30);
+	}
+	</script>
+	<style type="text/css">
+*{margin:0;padding:0;}
+body{font:12px SimSun;color:#666;height:2000px;}
+em{font-style:normal;}
+ul,ol{list-style:none;}
+
+#wrapper{width:950px;margin:0 auto;}
+h2{color:red;margin:20px 0;}
+h3{color:#600;margin:10px 0;}
+.list{list-style:square inside;}
+li .title{color:black;font:bold 14px SimSun;padding:10px 0 5px;}
+li span{color:#006;}
+
+#scrollBox{position:absolute;right:10px;width:40px;height:122px;text-align:center;}
+#scrollBox *{width:100%;height:40px;line-height:40px;color:white;cursor:pointer;}
+.top{background:black;}
+.center{background:red;margin-top:1px;}
+.bottom{background:black;margin-top:1px;transform:rotate(180deg);}
+	</style>
+</head>
+<body>
+<div id="scrollBox">
+	<div class="top" id="top">▲</div>
+	<div class="center" id="center">■</div>
+	<div class="bottom" id="bottom">▲</div>
+</div>
+
+<div id="wrapper">
+	<h2>页内滑动</h2>
+	<h3>页面加载完成 || 窗口大小改变 || 页面滚动的时候，调用运动框架</h3>
+	<ul class="list">
+		<li>
+			<span class="title">先写好一个元素滚动的框架</span><br />
+			<pre>
+var moveTime;
+function fnMove(obj,iTarget){    <span>//obj运动的元素   iTarget运动的目标点</span>
+	clearInterval(moveTime);
+	moveTime=setInterval(function(){
+		var iSpeed=(iTarget-obj.offsetTop)/5;
+		iSpeed=iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed) ;
+		if(iSpeed==0){clearInterval(moveTime);}
+		obj.style["top"]=(obj.offsetTop+iSpeed)+"px";
+	},30);
+}
+			</pre>
+		</li>
+		<li>
+			<span class="title">页面加载完成，窗口改变大小，页面滚动  都触发元素滑动框架</span><br />
+			<pre>
+window.onload=window.onresize=window.onscroll=function(){
+	oScrollBox=document.getElementById("scrollBox");
+	if(!sroll_){
+		clearInterval(backTime);
+	}
+	sroll_=false;
+	var scrollT=document.documentElement.scrollTop || document.body.scrollTop;   //页面的scrollTop值
+	var windowClientHeight=document.documentElement.clientHeight;     //浏览器页面可见高度
+	var iTarget=scrollT+parseInt((windowClientHeight-oScrollBox.offsetHeight)/2);
+	fnMove(oScrollBox,iTarget);
+}
+			</pre>
+		</li>
+	</ul>
+
+	<h2>返回顶部，中间，和底部</h2>
+	<h3></h3>
+	<ul class="list">
+		<li>
+			<span class="title">先写好一个页面运动框架</span><br />
+			<pre>
+<span>//返回头部和底部</span>
+function fnBack(iTarget){
+	clearInterval(backTime);
+	backTime=setInterval(function(){
+		var scrollT=document.documentElement.scrollTop || document.body.scrollTop;   //页面的scrollTop值
+		var iSpeed=(iTarget-scrollT)/5;
+		iSpeed=iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed) ;
+		if(iSpeed==0){clearInterval(backTime);}
+		sroll_=true;
+		window.scrollTo("",scrollT+iSpeed);
+	},30);
+}
+			</pre>
+		</li>
+		<li>
+			<span class="title">点击不同元素触发滚动事件</span><br />
+<pre>
+<span>//向上滚</span>
+var oTop=document.getElementById("top");
+oTop.onclick=function(){
+	fnBack(0);
+}
+
+<span>//向中间滚</span>
+var oCenter=document.getElementById("center");
+oCenter.onclick=function(){
+	fnBack(parseInt((document.documentElement.offsetHeight-windowClientHeight)/2));
+}
+
+<span>//向下滚</span>
+var oBottom=document.getElementById("bottom");
+oBottom.onclick=function(){
+	fnBack(document.documentElement.offsetHeight-windowClientHeight);
+}
+</pre>
+		</li>
+		<li>
+			<span class="title">判断是用户拖动滑动条滚动，还是事件触发的滚动。如果是用户拖动滑动条滚动，马上关闭定时器</span><br />
+<pre>
+<span>添加一个变量</span>
+var sroll_=true;
+
+<span>//为window.onscroll添加判断</span>
+if(!sroll_){
+	clearInterval(backTime);
+}
+sroll_=false;
+
+<span>定时器里每次调用函数时设置变量</span>
+var sroll_=true;
+</pre>
+		</li>
+	</ul>
+</div>
+</body>
+</html>

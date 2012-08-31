@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>获取/设置css样式</title>
+	<script type="text/javascript" src="get-set css.js"></script>
+
+
+	<script type="text/javascript">
+window.onload=function(){
+	var oBox=document.getElementById("box");
+	//alert(getStyle(oBox,"backgroundColor")); 
+	//setStyle(oBox,"width","300px"); 
+	//alert(cssStyle(oBox,"width"));
+	//cssStyle(oBox,"width","200px");
+
+	//alert(getStyleS(oBox,["backgroundColor","width","height"]))
+	//setStyleS(oBox,{width:"50px",height:"50px",background:"red"});
+	alert(cssStyleS(oBox,["backgroundColor","width","height"]));
+	//cssStyleS(oBox,{width:"50px",height:"50px",background:"red"});
+}
+	</script>
+	<style type="text/css">
+#box{width:100px;height:120px;background:gray;margin:20px;border:3px solid black;}
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+</body>
+</html>

@@ -1,3 +1,4 @@
+//获得或设置css
 function cssStyle(obj,attr,value){
 	if(arguments.length==arguments.callee.length){
 		if(attr=="opacity"){

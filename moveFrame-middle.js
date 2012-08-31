@@ -38,7 +38,7 @@ function moveFrame(obj,attr,iTarget){
 }
 
 //链式运动
-function moveFrames(obj,attr,iTarget){
+function moveFrames(obj,attr,iTarget,fn){
 	clearInterval(obj.timer);
 	obj.timer=setInterval(function(){
 		var icur

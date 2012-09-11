@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象切换</title>
+	<style type="text/css">
+*{margin:0;padding:0;}
+ul{list-style:none;}
+body{font:12px/1.5 "Microsoft YaHei",SimSun;}
+#wrapper{border:3px solid gray;width:300px;margin:0 auto;}
+#tabTitle{height:26px;line-height:26px;border-bottom:1px solid gray;}
+#tabTitle li{float:left;padding:0 10px;cursor:pointer;}
+#tabTitle li.current{background:gray;color:white;}
+.main{padding:10px;display:none;}
+	</style>
+	<script type="text/javascript">
+//获取class
+function getClassName(oParent,classN,tag){
+	if(oParent.getElementsByClassName){   //如果有 getElementsByClassName 方法，就调用该方法
+		return oParent.getElementsByClassName(classN);
+	}else{
+		var result=[];
+		var oTag=tag || "*";
+		var aTag=oParent.getElementsByTagName(oTag);
+		for(var i=0;i<aTag.length;i++){
+			if(aTag[i].className.indexOf(classN) != -1){
+				result.push(aTag[i]);
+			}
+		}
+		return result;
+	}
+}
+
+
+/*构造切换函数-start*/
+function TabSwitch(parentId,Tid,mClass){   //parentId 整个切换元素的id  ，Tid 所有标题元素父级id， mClass 切换内容class
+	var oWraper=document.getElementById(parentId);
+	this.at=document.getElementById(Tid).getElementsByTagName("li");
+	this.am=getClassName(oWraper,mClass,"div");
+	var _this=this;
+	for(var i=0;i<this.at.length;i++){
+		this.at[i].index=i;
+		this.at[i].onclick=function(){
+			_this.tab(this);
+		}
+	}
+}
+TabSwitch.prototype.tab=function(obj){
+	for(var i=0;i<this.at.length;i++){
+		this.at[i].className="";
+		this.am[i].style.display="none";
+	}
+	obj.className="current";
+	this.am[obj.index].style.display="block";
+}
+/*构造切换函数-end*/
+
+
+window.onload=function(){
+	var uu=new TabSwitch("wrapper","tabTitle","main");
+}
+	</script>
+</head>
+<body>
+	<div id="wrapper">
+		<ul id="tabTitle">
+			<li class="current">tab1</li>
+			<li>tab2</li>
+			<li>tab3</li>
+		</ul>
+		<div class="main" style="display:block;">111</div>
+		<div class="main">222</div>
+		<div class="main">333</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>自适应表单</title>
+	<style type="text/css">
+*{margin:0;padding:0;}
+ul{list-style:none;}
+body{font:12px/normal SimSun;}
+.autoForm ul{float:left;}
+.autoForm li{white-space:nowrap;}
+.autoForm label{text-align:right;display:block;}
+.autoForm .txtInfo{width:0;height:1em;position:relative;right:-100%;*margin-right:-99999%;top:-1em;}
+	</style>
+</head>
+<body>
+	<form action="" mathod="get" class="autoForm">
+		<ul>
+			<li><label for="userName">姓名：</label><div class="txtInfo"><input type="text">* 填写姓名</div></li>
+			<li><label for="userName">年龄：</label><div class="txtInfo"><input type="text">* 填写年龄</div></li>
+			<li><label for="userName">------身份证：</label><div class="txtInfo"><input type="text">* 填写身份证</div></li>
+		</ul>
+	</form>
+</body>
+</html>

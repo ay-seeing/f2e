@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象拖拽</title>
+	<style type="text/css">
+*{margin:0;padding:0;}
+div{position:absolute;width:100px;height:100px;
+
+	/*长串英文数字换行*/
+	white-space:normal;/*word-break:break-all;*/word-wrap:break-word;
+}
+	</style>
+
+	<script type="text/javascript">
+// 封装一个面向对象拖拽-start
+function Drag(oo){
+	this.obj=oo;
+	var _this=this;
+	this.obj.onmousedown=function(){
+		_this.divDown();
+		//var oEvent=event || ev;  
+		//event.cancelBubble=true;    //取消冒泡需要传入参数
+	};
+	document.onmouseup=function(){
+		_this.divUp()
+	};
+}
+Drag.prototype.divDown=function(ev){
+	var oEvent=event || ev;
+	this.mousex=oEvent.clientX-this.obj.offsetLeft;
+	this.mousey=oEvent.clientY-this.obj.offsetTop;
+	var _this=this;
+	document.onmousemove=function(){
+		_this.divMove();
+	}
+}
+Drag.prototype.divMove=function(ev){
+	var oEvent=event || ev;
+	this.obj.style.left=oEvent.clientX-this.mousex+"px";
+	this.obj.style.top=oEvent.clientY-this.mousey+"px";
+}
+Drag.prototype.divUp=function(){
+	document.onmousemove=null;
+}
+// 封装一个面向对象拖拽-end
+
+
+
+
+window.onload=function(){
+	var aDiv=document.getElementsByTagName("div");
+		//直接 new 一个对象，没有限制范围
+	var a1=new Drag(aDiv[0]);
+
+	//直接 new 一个对象，重置方法，限制范围
+	var a2=new Drag(aDiv[1]);
+	a2.divMove=function(ev){
+		var oEvent=event || ev;
+		var clientW=document.documentElement.clientWidth;
+		var clientH=document.documentElement.clientHeight;
+		this.l=oEvent.clientX-this.mousex;
+		this.t=oEvent.clientY-this.mousey;
+		if(this.l<0){
+			this.l=0;
+		}else if(this.l>clientW-this.obj.offsetWidth){
+			this.l=clientW-this.obj.offsetWidth;
+		}
+		if(this.t<0){
+			this.t=0;
+		}else if(this.t>clientH-this.obj.offsetHeight){
+			this.t=clientH-this.obj.offsetHeight;
+		}
+		this.obj.style.left=this.l+"px";
+		this.obj.style.top=this.t+"px";
+	}
+}
+	</script>
+</head>
+<body>
+	<div style="background:red;">sssssssssssssssssssss</div>
+	<div style="background:green;">222222222222222222222222ssssssssssssss</div>
+</body>
+</html>

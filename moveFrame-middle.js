@@ -1,3 +1,10 @@
+/*
+ 运用该运动框架时，先确定需要更改的css属性已经设置过，否则可能会出错
+*/
+
+
+
+
 //获得或设置css
 function cssStyle(obj,attr,value){
 	if(arguments.length==arguments.callee.length){
@@ -5,11 +12,15 @@ function cssStyle(obj,attr,value){
 			obj.style[attr]=value/100;
 			obj.style.filter="alpha(opacity="+value+")";
 		}else{
-			obj.style[attr]=value;
+			obj.style[attr]=value+"px";
 		}
 	}else{
 		if(obj.currentStyle){
-			return obj.currentStyle[attr];
+			if(attr=="opacity"){
+				return obj.currentStyle[attr]*100;
+			}else{
+				return obj.currentStyle[attr];
+			}
 		}else{
 			if(attr=="opacity"){
 				return obj.style.opacity*100 || getComputedStyle(obj,false)[attr]*100;
@@ -29,11 +40,7 @@ function moveFrame(obj,attr,iTarget){
 		ispeed=(iTarget-icur)/5;
 		ispeed=ispeed > 0 ? Math.ceil(ispeed) : Math.floor(ispeed);
 		if(ispeed==0){clearInterval(obj.timer);}
-		if(attr=="opacity"){
-			cssStyle(obj,attr,icur+ispeed);
-		}else{
-			cssStyle(obj,attr,icur+ispeed+"px");
-		}
+		cssStyle(obj,attr,icur+ispeed);
 	},30);
 }
 
@@ -51,10 +58,6 @@ function moveFrames(obj,attr,iTarget,fn){
 				fn();
 			}
 		}
-		if(attr=="opacity"){
-			cssStyle(obj,attr,icur+ispeed);
-		}else{
-			cssStyle(obj,attr,icur+ispeed+"px");
-		}
+		cssStyle(obj,attr,icur+ispeed);
 	},30);
 }

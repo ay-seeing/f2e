@@ -3,7 +3,8 @@
 */
 
 
-//设置\获取css
+
+//获得或设置css
 function cssStyle(obj,attr,value){
 	if(arguments.length==arguments.callee.length){
 		if(attr=="opacity"){
@@ -29,32 +30,37 @@ function cssStyle(obj,attr,value){
 	}
 }
 
-//高级运动框架
-//json => {width:50;height:60}
-function moveFrame(obj,json,fn){
+//非链式-匀速运动框架
+function moveFrame(obj,attr,iTarget){
 	clearInterval(obj.timer);
 	obj.timer=setInterval(function(){
-		var stopMove;    //用于判断是否停止运动
-
-		//循环属性
-		for(attr in json){
-			stopMove=true;
-			var icur
-			icur=parseInt(cssStyle(obj,attr));
-			ispeed=(json[attr]-icur)/5;
-			ispeed=ispeed > 0 ? Math.ceil(ispeed) : Math.floor(ispeed);
-			if(ispeed!=0){
-				stopMove=false;
-			}
-			cssStyle(obj,attr,icur+ispeed);
-		}
-
-		//判断如果所有运动都到各自目标点了就关闭定时器
-		if(stopMove){
+		var icur;
+		icur=parseInt(cssStyle(obj,attr));
+		var ispeed=10;
+		ispeed=iTarget-icur > 0 ? ispeed : -ispeed ;
+		if(Math.abs(iTarget-icur) < Math.abs(ispeed)){
 			clearInterval(obj.timer);
+			ispeed=iTarget-icur;
+		}
+		cssStyle(obj,attr,icur+ispeed);
+	},30);
+}
+
+//链式-匀速运动框架
+function moveFrame(obj,attr,iTarget,fn){
+	clearInterval(obj.timer);
+	obj.timer=setInterval(function(){
+		var icur;
+		icur=parseInt(cssStyle(obj,attr));
+		var ispeed=10;
+		ispeed=iTarget-icur > 0 ? ispeed : -ispeed ;
+		if(Math.abs(iTarget-icur) < Math.abs(ispeed)){
+			clearInterval(obj.timer);
+			ispeed=iTarget-icur;
 			if(fn){
 				fn();
 			}
 		}
+		cssStyle(obj,attr,icur+ispeed);
 	},30);
 }

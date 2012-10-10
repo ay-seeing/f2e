@@ -76,10 +76,10 @@ oClass={
 		var classN=new RegExp(classN,i);
 		for(var i=0;i<atag.length;i++){
 			if(classN.test(atag[i].className)) aGetTag.push(atag[i]);
-		};
+		}
 		return aGetTag;
 	}
-};
+}
 
 
 //获取或设置css属性值，如果是2个参数那就获得，如果是3个参数就是设置
@@ -91,8 +91,8 @@ function fnTagAttr(obj,attr,values){
 			return obj.currentStyle[attr];
 		}else{
 			return getComputedStyle(obj,false)[attr];
-		};
-	};
-};
+		}
+	}
+}
 
 

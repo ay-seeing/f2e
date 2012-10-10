@@ -30,7 +30,7 @@ function cssStyle(obj,attr,value){
 }
 
 //高级运动框架
-//json => {width:50;height:60}
+//json => {width:50,height:60}
 function moveFrame(obj,json,fn){
 	clearInterval(obj.timer);
 	obj.timer=setInterval(function(){

@@ -91,7 +91,8 @@ function fnTagAttr(obj,attr,values){
 			return obj.currentStyle[attr];
 		}else{
 			return getComputedStyle(obj,false)[attr];
+		}
 	}
-};
+}
 
 

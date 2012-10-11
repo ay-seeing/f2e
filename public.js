@@ -87,10 +87,36 @@ function fnTagAttr(obj,attr,values){
 	if(arguments.length==3){
 		obj.style.attr=values;
 	}else{
-		if(obj.currentStyle){
+		if(obj.currentStyle){  /* for ie */
 			return obj.currentStyle[attr];
 		}else{
 			return getComputedStyle(obj,false)[attr];
+		}
+	}
+}
+
+//设置\获取css
+function cssStyle(obj,attr,value){
+	if(arguments.length==arguments.callee.length){
+		if(attr=="opacity"){
+			obj.style[attr]=value/100;
+			obj.style.filter="alpha(opacity="+value+")";
+		}else{
+			obj.style[attr]=value+"px";
+		}
+	}else{
+		if(obj.currentStyle){  /* for ie */
+			if(attr=="opacity"){
+				return obj.currentStyle[attr]*100;
+			}else{
+				return obj.currentStyle[attr];
+			}
+		}else{
+			if(attr=="opacity"){
+				return obj.style.opacity*100 || getComputedStyle(obj,false)[attr]*100;
+			}else{
+				return getComputedStyle(obj,false)[attr];
+			}
 		}
 	}
 }

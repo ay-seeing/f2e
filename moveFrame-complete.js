@@ -13,7 +13,7 @@ function cssStyle(obj,attr,value){
 			obj.style[attr]=value+"px";
 		}
 	}else{
-		if(obj.currentStyle){
+		if(obj.currentStyle){  /* for ie */
 			if(attr=="opacity"){
 				return obj.currentStyle[attr]*100;
 			}else{

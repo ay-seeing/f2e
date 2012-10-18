@@ -1,0 +1,55 @@
+toString()
+toLocaleString()
+toUTCString()
+toGMTString()
+
+toDateString()
+toLocaleDateString()
+toTimeString()
+toLocaleTimeString()
+
+日期部分包括 年、月、日和星期
+时间部分包括 小时、分钟、秒和毫秒
+
+getYear()
+getFullYear()
+getMonth() //0-11
+getDate()
+getDay()  //0-6，星期日是 0
+
+getUTCFullYear()
+getUTCMonth()
+getUTCDate()
+getUTCDay()
+
+getHours()
+getMinutes()
+getSeconds()
+getMilliseconds()
+getTime()  //返回日期对象时间和1970年1月1日0时0分0秒所间隔的时间毫秒数
+getTimezoneOffset()  //返回对象本地时间和UTC之间的时差数，其单位为秒
+
+getUTCHours()
+getUTCMinutes()
+getUTCSecondes()
+getUTCMillisecondes()
+
+setYear(year)
+setFullYear(year,month,day)
+setMonth(month)
+setDay(day)
+
+setUTCFullYear(year,month,day)
+setUTCMonth(month)
+setUTCDay(day)
+
+setHours(hours,minutes,seconds,milliseconds)
+setMinutes(minutes,seconds,milliseconds)
+setSeconds(seconds,milliseconds)
+setMilliseconds(milliseconds)
+
+
+setUTCHours(hours,minutes,seconds,milliseconds)
+setUTCMinutes(minutes,seconds,milliseconds)
+setUTCSeconds(seconds,milliseconds)
+setUTCMilliseconds(milliseconds)

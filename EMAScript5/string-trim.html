@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>trim()</title>
+	<style>
+	*{padding:0;margin:0;}
+pre{text-decoration:underline;}
+ul{list-style:none;}
+.trim_box{display:-webkit-box;margin:15px 0;}
+.trim_item{width:150px;-webkit-box-flex:1;}
+.trim_item:first-child{background:red;}
+.trim_item:nth-child(2){background:orange;}
+.trim_item:last-child{background:yellow;}
+	</style>
+	<script>
+	var str="   abc   def    ";
+	document.write("<strong>原始字符串：</strong><pre>"+str+"</pre>");
+
+	document.write("<ul class='trim_box'>");
+	//去掉首位空格
+	str_trim=str.trim();
+	document.write("<li class='trim_item'><h4>去掉首位空格 trim()</h4><pre>"+str_trim+"</pre></li>");
+
+	//去掉开始空格
+	str_trimLeft=str.trimLeft();
+	document.write("<li class='trim_item'><h4>去掉开始空格 trimLeft()</h4><pre>"+str_trimLeft+"</pre></li>");
+
+	//去掉结尾空格
+	str_trimRight=str.trimRight();
+	document.write("<li class='trim_item'><h4>去掉结尾空格 trimRight()</h4><pre>"+str_trimRight+"</pre></li>");
+
+	document.write("</ul>")
+	</script>
+</head>
+<body>
+	display:-webkit-box;<br />
+	-webkit-box-flex:1;<br />
+</body>
+</html>
